@@ -14,6 +14,8 @@ resource "aws_sns_topic_policy" "notifications_topic" {
 }
 
 data "aws_iam_policy_document" "notifications_topic" {
+  override_policy_documents = var.sns_topic_policy_override_policy_documents
+
   policy_id = "2012-10-17"
 
   statement {
@@ -34,6 +36,8 @@ data "aws_iam_policy_document" "notifications_topic" {
     sid = "2012-10-17"
   }
 }
+
+
 
 /* https://github.com/hashicorp/terraform-provider-aws/issues/32072
 resource "aws_sns_topic_subscription" "health_check_console_alarm" {

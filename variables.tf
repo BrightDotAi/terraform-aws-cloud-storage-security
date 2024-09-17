@@ -374,6 +374,8 @@ variable "sns_topic_policy_override_policy_documents" {
   description = <<EOT
     List of IAM policy documents that are merged together into the default SNS 'Notifications' Topic.
     Passed in via `override_policy_documents` in `aws_iam_policy_document` data source.
+    Users should omit definition of the `resources` attribute in statement(s) as the module will
+    set resources to target only the 'Notifications' SNS topic.
     https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#override_policy_documents
   EOT
   type        = list(string)

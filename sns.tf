@@ -62,8 +62,6 @@ data "aws_iam_policy_document" "notifications_topic" {
   }
 }
 
-
-
 /* https://github.com/hashicorp/terraform-provider-aws/issues/32072
 resource "aws_sns_topic_subscription" "health_check_console_alarm" {
   protocol  = "email-json"

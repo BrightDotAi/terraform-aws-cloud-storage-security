@@ -127,10 +127,9 @@ resource "aws_ecs_task_definition" "console" {
           "CMD-SHELL",
           "curl -k -f https://localhost/api/health || exit 1"
         ]
-        Interval    = 30
-        Timeout     = 5
-        Retries     = 3
-        StartPeriod = 30
+        Interval = 60
+        Timeout  = 5
+        Retries  = 3
       }
     }
   ])

@@ -190,9 +190,6 @@ resource "aws_iam_role_policy" "console_task" {
           "s3:Put*Configuration",
           "elasticfilesystem:CreateTags",
           "elasticfilesystem:CreateMountTarget",
-          "elasticfilesystem:CreateAccessPoint",
-          "elasticfilesystem:DeleteAccessPoint",
-          "elasticfilesystem:DescribeAccessPoints",
           "elasticfilesystem:DescribeFileSystems",
           "elasticfilesystem:DescribeMountTargets",
           "elasticfilesystem:DescribeMountTargetSecurityGroups",
@@ -219,8 +216,8 @@ resource "aws_iam_role_policy" "console_task" {
           "arn:${data.aws_partition.current.partition}:ec2:*:*:*",
           "arn:${data.aws_partition.current.partition}:logs:*:*:*",
           "arn:${data.aws_partition.current.partition}:s3:::*",
+          "arn:${data.aws_partition.current.partition}:elasticfilesystem:*:*:file-system",
           "arn:${data.aws_partition.current.partition}:elasticfilesystem:*:*:file-system/*",
-          "arn:${data.aws_partition.current.partition}:elasticfilesystem:*:*:access-point/*",
           "arn:${data.aws_partition.current.partition}:servicequotas:*:*:ebs/L-D18FCD1D",
           "arn:${data.aws_partition.current.partition}:servicequotas:*:*:ebs/L-7A658B76",
           "arn:${data.aws_partition.current.partition}:sns:*:*:*",
@@ -287,13 +284,6 @@ resource "aws_iam_role_policy" "console_task" {
           "s3:DeleteBucket*",
           "s3:DeleteObject*",
           "securityhub:*Findings*",
-          "secretsmanager:CreateSecret",
-          "secretsmanager:DeleteSecret",
-          "secretsmanager:DescribeSecret",
-          "secretsmanager:GetSecretValue",
-          "secretsmanager:PutSecretValue",
-          "secretsmanager:RestoreSecret",
-          "secretsmanager:TagResource",
           "sns:AddPermission",
           "sns:*Topic",
           "sns:*Attributes",
@@ -346,7 +336,6 @@ resource "aws_iam_role_policy" "console_task" {
           "arn:${data.aws_partition.current.partition}:budgets::*:budget/*${local.application_id}",
           "arn:${data.aws_partition.current.partition}:budgets::*:budget/*${local.application_id}/action/*",
           "arn:${data.aws_partition.current.partition}:ecr:${local.aws_region}:${local.ecr_account}:repository/cloudstoragesecurity/*",
-          "arn:${data.aws_partition.current.partition}:secretsmanager:${local.aws_region}:*:secret:cloudstoragesec/*",
           "arn:${data.aws_partition.current.partition}:securityhub:${local.aws_region}::product/cloud-storage-security/antivirus-for-amazon-s3",
           "arn:${data.aws_partition.current.partition}:securityhub:${local.aws_region}:*:product-subscription/cloud-storage-security/antivirus-for-amazon-s3",
           "arn:${data.aws_partition.current.partition}:securityhub:${local.aws_region}:*:hub/default"
@@ -532,8 +521,7 @@ resource "aws_iam_role_policy_attachment" "dynamo_cmk_agent" {
 
 resource "aws_iam_policy" "aws_bedrock" {
   count = var.aws_bedrock_enabled ? 1 : 0
-
-  name = "${var.service_name}ConsolePolicy-${local.application_id}-AwsBedrock"
+  name  = "${var.service_name}ConsolePolicy-${local.application_id}-AwsBedrock"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -552,8 +540,7 @@ resource "aws_iam_policy" "aws_bedrock" {
 }
 
 resource "aws_iam_role_policy_attachment" "aws_bedrock_console" {
-  count = var.aws_bedrock_enabled ? 1 : 0
-
+  count      = var.aws_bedrock_enabled ? 1 : 0
   role       = aws_iam_role.console_task.name
   policy_arn = aws_iam_policy.aws_bedrock[0].arn
 }
@@ -648,8 +635,6 @@ resource "aws_iam_role_policy" "agent_task" {
           "securityhub:BatchImportFindings",
           "sns:ConfirmSubscription",
           "sns:Publish",
-          "sns:GetSubscriptionAttributes",
-          "sns:ListSubscriptionsByTopic",
           "sqs:*Message",
           "sqs:GetQueueAttributes",
           "ssm:GetDocument",

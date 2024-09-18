@@ -15,10 +15,6 @@
     "classificationTagsExcluded"
   ],
   "properties": {
-    "consoleUrl": {
-      "type": "string",
-      "description": "URL of the Console."
-    },
     "scanTaggingEnabled": {
       "type": "boolean",
       "description": "Indicates whether tags should be added to the scanned objects."

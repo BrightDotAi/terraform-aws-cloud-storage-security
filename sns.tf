@@ -45,15 +45,7 @@ data "aws_iam_policy_document" "notifications_topic" {
 
   statement {
     actions = [
-      "sns:GetTopicAttributes",
-      "sns:SetTopicAttributes",
-      "sns:AddPermission",
-      "sns:RemovePermission",
-      "sns:DeleteTopic",
-      "sns:Subscribe",
-      "sns:ListSubscriptionsByTopic",
       "sns:Publish",
-      "sns:Receive",
     ]
     effect = "Allow"
     principals {

@@ -44,8 +44,18 @@ data "aws_iam_policy_document" "notifications_topic" {
   policy_id = "2012-10-17"
 
   statement {
-    actions = ["sns:Publish"]
-    effect  = "Allow"
+    actions = [
+      "SNS:GetTopicAttributes",
+      "SNS:SetTopicAttributes",
+      "SNS:AddPermission",
+      "SNS:RemovePermission",
+      "SNS:DeleteTopic",
+      "SNS:Subscribe",
+      "SNS:ListSubscriptionsByTopic",
+      "SNS:Publish",
+      "SNS:Receive",
+    ]
+    effect = "Allow"
     principals {
       type = "AWS"
       identifiers = [

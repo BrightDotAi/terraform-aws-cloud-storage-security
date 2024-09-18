@@ -1,5 +1,5 @@
 version: 1
-module_version: 0.3.0
+module_version: 0.3.1
 
 test_defaults:
   runner_image: "312851193143.dkr.ecr.us-west-2.amazonaws.com/infrastructure"

@@ -45,15 +45,15 @@ data "aws_iam_policy_document" "notifications_topic" {
 
   statement {
     actions = [
-      "SNS:GetTopicAttributes",
-      "SNS:SetTopicAttributes",
-      "SNS:AddPermission",
-      "SNS:RemovePermission",
-      "SNS:DeleteTopic",
-      "SNS:Subscribe",
-      "SNS:ListSubscriptionsByTopic",
-      "SNS:Publish",
-      "SNS:Receive",
+      "sns:GetTopicAttributes",
+      "sns:SetTopicAttributes",
+      "sns:AddPermission",
+      "sns:RemovePermission",
+      "sns:DeleteTopic",
+      "sns:Subscribe",
+      "sns:ListSubscriptionsByTopic",
+      "sns:Publish",
+      "sns:Receive",
     ]
     effect = "Allow"
     principals {
